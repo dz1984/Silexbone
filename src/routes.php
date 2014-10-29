@@ -11,10 +11,42 @@ $app->before(
 
 $app->get('/', 
     function() use ($app) {
-    //return 'Welcome, it is running on Silex';
+         $user = $app['session']->get('user');
+        if (null == $user) {
+            return $app->redirect('./login');
+        }
+
         return $app['twig']->render('index.twig', 
             [
-                'name' => 'Silexbone'
+                'name' => $user['username']                   
+            ]
+        );
+});
+
+$app->match('/login', 
+    function(Request $request) use ($app) {
+        $form = $app['form.factory']->createBuilder('form')
+                    ->add('email','email',['attr' => ['label'=>'帳號', 'class' => 'lab']])
+                    ->add('password', 'password')
+                    ->add('Login', 'submit')
+                    ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $data = $form->getData();
+
+            $email = $data->email;
+            $pwd = $data->password;
+            
+            $app['session']->set('user', ['username'=> 'Silexbone']);
+            return $app->redirect('./');
+        }
+
+        return $app['twig']->render('login.twig', 
+            [
+                'name' => 'Silexbone',
+                'formView' => $form->createView()
             ]
         );
     }

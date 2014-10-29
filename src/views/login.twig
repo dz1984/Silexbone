@@ -3,8 +3,11 @@
 {% block content %}
   <div class="uk-container-center">
     <div class="uk-text-center">
-      <h1>{{ name }}</h1>
+      <h1>Login</h1>
       <hr/>
     </div>
+    <form action="" method="POST">
+    {{ form_widget(formView) }}
+    </form>
   </div>
 {% endblock %}
