@@ -26,9 +26,9 @@ $app->get('/',
 $app->match('/login', 
     function(Request $request) use ($app) {
         $form = $app['form.factory']->createBuilder('form')
-                    ->add('email','email',['attr' => ['label'=>'帳號', 'class' => 'lab']])
-                    ->add('password', 'password')
-                    ->add('Login', 'submit')
+                    ->add('email', 'text', ['label' => ' ', 'attr' => ['class' => 'lab', 'placeholder' => 'Username']])
+                    ->add('password',  'text', ['label' => ' ', 'attr' => ['placeholder' => 'Password']])
+                    ->add('Login', 'submit', ['attr' => ['class' => 'uk-button uk-button-primary']])
                     ->getForm();
 
         $form->handleRequest($request);
