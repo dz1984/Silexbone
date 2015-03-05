@@ -7,7 +7,7 @@ class AppInitTest extends WebTestCase
 {
     public function createApplication()
     {
-        $app =  require __DIR__.'/../app/app.php';
+        $app =  require_once __DIR__.'/../src/app.php';
         $app['debug'] = true;
 
         return $app;

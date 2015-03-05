@@ -23,6 +23,11 @@ $app->get('/',
         );
 });
 
+$app->get('/welcome', 
+    function() {
+        return 'ok';
+});
+
 $app->match('/login', 
     function(Request $request) use ($app) {
         $form = $app['form.factory']->createBuilder('form')
